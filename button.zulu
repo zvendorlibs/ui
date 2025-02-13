@@ -1,0 +1,43 @@
+module :button
+
+type Button struct = {ptr}
+
+impl Button = 
+  fn new(text)
+    where types::is_string(text) =>
+		let 
+			button_class = ffi::load_class("ZUI.jar", "ui.Button")
+			zstring = ffi::load_class("", "com.zulu.runtime.ZuluString")
+			constructor = ffi::get_constructor(button_class, zstring)
+      object = ffi::new_unraw(constructor, text)
+		in Button {ptr: object}
+
+	fn on_click(self, func) 
+		where types::is_function(func) =>
+		let 
+			window_class = ffi::load_class("ZUI.jar", "ui.Button")
+			method = ffi::get_method(window_class, "onclick")
+		in {
+			ffi::invoke(method, self.ptr, func)
+			self
+		}
+
+	fn text(self, text) 
+		where types::is_string(text) =>
+		let 
+			window_class = ffi::load_class("ZUI.jar", "ui.Button")
+			method = ffi::get_method(window_class, "setText")
+		in {
+			ffi::invoke(method, self.ptr, text)
+			self
+		}
+
+	fn text(self) =>
+		let 
+			window_class = ffi::load_class("ZUI.jar", "ui.Button")
+			method = ffi::get_method(window_class, "text")
+		in ffi::invoke(method, self.ptr)
+
+
+;
+
