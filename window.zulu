@@ -5,64 +5,64 @@ type Window struct = {ptr}
 impl Window = 
   fn new(path)
     where types::is_string(path) =>
-		let 
-			window_class = ffi::load_class("ZUI.jar", "ui.Window")
-			zstring = ffi::load_class("", "com.zulu.runtime.ZuluString")
-			constructor = ffi::get_constructor(window_class, zstring)
+    let 
+      window_class = ffi::load_class("ZUI.jar", "ui.Window")
+      zstring = ffi::load_class("", "com.zulu.runtime.ZuluString")
+      constructor = ffi::get_constructor(window_class, zstring)
       object = ffi::new_unraw(constructor, path)
-		in Window {ptr: object}
+    in Window {ptr: object}
 
-	fn resize(self, width, height)
-		where types::is_number(width)
-			&& types::is_number(height)  =>
-			let 
-				window_class = ffi::load_class("ZUI.jar", "ui.Window")
-				method = ffi::get_method(window_class, "setSize")
-			in {
-				ffi::invoke_unraw(method, self.ptr, width, height)
-				self
-			}
+  fn resize(self, width, height)
+    where types::is_number(width)
+      && types::is_number(height)  =>
+      let 
+        window_class = ffi::load_class("ZUI.jar", "ui.Window")
+        method = ffi::get_method(window_class, "setSize")
+      in {
+        ffi::invoke_unraw(method, self.ptr, width, height)
+        self
+      }
 
-	fn set_location(self, x, y)
-		where types::is_number(x)
-			&& types::is_number(y)  =>
-			let 
-				window_class = ffi::load_class("ZUI.jar", "ui.Window")
-				method = ffi::get_method(window_class, "setSize")
-			in {
-				ffi::invoke_unraw(method, self.ptr, x, y)
-				self
-			}
-
-
-	fn center(self) =>
-		let 
-			window_class = ffi::load_class("ZUI.jar", "ui.Window")
-			method = ffi::get_method(window_class, "setAtomicLocation")
-		in {
-			ffi::invoke_unraw(method, self.ptr, :nil)
-			self
-		}
-
-	fn visible(self, cond)
-		where types::is_atom(cond) =>
-		let 
-			window_class = ffi::load_class("ZUI.jar", "ui.Window")
-			method = ffi::get_method(window_class, "visible")
-		in {
-			ffi::invoke_unraw(method, self.ptr, cond)
-			self
-		}
+  fn set_location(self, x, y)
+    where types::is_number(x)
+      && types::is_number(y)  =>
+      let 
+        window_class = ffi::load_class("ZUI.jar", "ui.Window")
+        method = ffi::get_method(window_class, "setSize")
+      in {
+        ffi::invoke_unraw(method, self.ptr, x, y)
+        self
+      }
 
 
-	fn add(self, comp) =>
-		let 
-			window_class = ffi::load_class("ZUI.jar", "ui.Window")
-			method = ffi::get_method(window_class, "add")
-		in {
-			ffi::invoke(method, self.ptr, comp.ptr)
-			self
-		}
+  fn center(self) =>
+    let 
+      window_class = ffi::load_class("ZUI.jar", "ui.Window")
+      method = ffi::get_method(window_class, "setAtomicLocation")
+    in {
+      ffi::invoke_unraw(method, self.ptr, :nil)
+      self
+    }
+
+  fn visible(self, cond)
+    where types::is_atom(cond) =>
+    let 
+      window_class = ffi::load_class("ZUI.jar", "ui.Window")
+      method = ffi::get_method(window_class, "visible")
+    in {
+      ffi::invoke_unraw(method, self.ptr, cond)
+      self
+    }
+
+
+  fn add(self, comp) =>
+    let 
+      window_class = ffi::load_class("ZUI.jar", "ui.Window")
+      method = ffi::get_method(window_class, "add")
+    in {
+      ffi::invoke(method, self.ptr, comp.ptr)
+      self
+    }
 
 
 ;
