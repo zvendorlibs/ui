@@ -1,0 +1,9 @@
+[package]
+name = "ui"
+version = "0.0.1"
+authors = ["hexaredecimal"]
+
+[dependencies]
+
+[jarlibs]
+zui = "ZUI.jar"
