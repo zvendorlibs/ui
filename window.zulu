@@ -1,0 +1,46 @@
+module :window
+
+type Window struct = {ptr}
+
+impl Window = 
+  fn new(path)
+    where types::is_string(path) =>
+      let 
+        jframe_class = ffi::load_class("", "javax.swing.JFrame")
+        string_class = ffi::load_class("","java.lang.String")
+        constructor = ffi::get_constructor(jframe_class, string_class)
+        object = ffi::new(constructor, path)
+      in Window {ptr: object}
+
+	fn visible(self) =>
+    let 
+      jframe_class = ffi::load_class("", "javax.swing.JFrame")
+			method = ffi::get_method(jframe_class, "show")
+    in {
+			ffi::invoke(method, self.ptr)
+			self
+		}
+	
+	fn invisible(self) =>
+    let 
+      jframe_class = ffi::load_class("", "javax.swing.JFrame")
+			method = ffi::get_method(jframe_class, "hide")
+    in {
+			ffi::invoke(method, self.ptr)
+			self
+		}
+
+	fn resize(self, width, height)
+		where types::is_number(width)
+			&& types::is_number(height)  =>
+			let 
+				dimension_class = ffi::load_class("", "java.awt.Dimension")
+        constructor = ffi::get_constructor(dimension_class)
+        object = ffi::new(constructor)
+				int_class = ffi::load_class("", "int")
+				method = ffi::get_method(jframe_class, "setSize")
+			in {
+				//io::println(int_class)
+				self
+			}
+;
